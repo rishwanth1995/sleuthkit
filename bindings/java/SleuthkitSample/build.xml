@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="SleuthkitSample" default="default" basedir=".">
+    <description>Builds, tests, and runs the project SleuthkitApplication2.</description>
+    
+   
+    
+    <property name="default-jar-install" location="/usr/share/java"/>
+    <property name="build" location="build/"/>
+    <property name="dist" location="dist/"/>
+    <property name="src" location="src/sleuthkitsample"/>
+    <path id="libraries">
+        <fileset dir="${default-jar-install}">
+            <include name="c3p0*.jar"/>
+            <include name="sqlite*.jar"/>
+            <include name="postgresql-*.jar"/>
+            <include name="sleuthkit-*.jar"/>
+        </fileset>
+        <pathelement path="${build}/SleuthkitApplication2"/>
+    </path>
+    
+    <target name="compile"  description="compile the source code">
+        <mkdir dir="${build}"/>
+        <javac debug="on" srcdir="${src}" destdir="${build}" classpathref="libraries" includeantruntime="false">
+			<compilerarg value="-Xlint"/>
+	</javac>
+    </target>
+    
+    <target name="dist" depends= "compile" description="create the jar file">
+      <mkdir dir="${dist}"/>
+        <pathconvert property="classpathprop" refid="libraries"/>
+        <jar jarfile="${dist}/Sleuthkit-Sample.jar" basedir="${build}">
+            <manifest>
+                 <attribute name="Class-Path" value="${classpathprop}" />
+                 <attribute name="Main-Class" value="SleuthkitApplication2.class"/>
+            </manifest>
+        </jar>
+    </target>
+    
+    <target name="run" depends="compile,dist"
+			description="run the sample">
+		<java classname="sleuthkitsample.SleuthkitSample"
+			  fork="true">
+			<classpath> 
+        <path refid="libraries"/> 
+        <path location="${dist}/Sleuthkit-Sample.jar"/>
+      </classpath>
+		</java>
+    </target>
+
+    <target name="clean" description="cleans the build files">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+</project>
