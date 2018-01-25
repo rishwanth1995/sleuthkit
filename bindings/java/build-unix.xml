@@ -75,6 +75,22 @@
 		targetfile="${amd64}/linux/libtsk_jni.so"/>
 	</target>
 
+	<target name="check-build-unix" depends="testSQLitejar,copySQLitelib" if="sqlite.present">
+		<uptodate property="sqlite-up-to-date" srcfile="./lib/sqlite*.jar"
+			targetfile="${dependencies}/sqlite*.jar"/>
+	</target>
+
+	<target name="testSQLitejar">
+		<available file="${lib}/sqlite-jdbc-3.8.11.jar" property="sqlite.present"/>
+		<echo>${sqlite.present}</echo>
+	</target>
+
+	<target name="copySQLitelib" depends="testSQLitejar" if="sqlite.present">
+		<copy todir="${dependencies}">
+			<fileset dir="${lib}"><include name="sqlite*.jar"/></fileset>
+		</copy>
+	</target>
+
     <target name="testTSKLibs">
         <property environment="env"/>
         <available file="./jni/.libs/libtsk_jni.dylib" property="tsk_dylib.present"/>
