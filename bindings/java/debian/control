@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 8), default-jdk, javahelper (>= 0.54ubuntu1.1) , an
 Standards-Version: 3.9.3
 Homepage: https://www.sleuthkit.org/
 
-Package: libsleuthkit-datamodel-java
+Package: sleuthkit-datamodel
 Architecture: all
 Depends: ${java:Depends}, ${misc:Depends}, libpostgresql-jdbc-java, libc3p0-java, sleuthkit
 Recommends: ${java:Recommends}
@@ -19,7 +19,7 @@ Description: SQLite datamodel for sleuthkit
  data that is too large to fit into the database).
 
 
-Package: libsleuthkit-datamodel-java-doc
+Package: sleuthkit-datamodel-javadoc
 Architecture: all
 Section: doc
 Depends: ${java:Depends}, ${misc:Depends}

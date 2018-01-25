@@ -1,9 +1,0 @@
-Document: libsleuthkit-datamodel-java-doc
-Title: API JavaDoc for libsleuthkit-datamodel-java-doc
-Author: The authors of libsleuthkit-datamodel-java-doc
-Abstract: This is the API JavaDoc for libsleuthkit-datamodel-java-doc
-Section: Programming/Java
-
-Format: HTML
-Index: /usr/share/doc/libsleuthkit-datamodel-java-doc/api
-Files: /usr/share/doc/libsleuthkit-datamodel-java-doc/api/*.html
