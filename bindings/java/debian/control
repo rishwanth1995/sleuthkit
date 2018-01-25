@@ -1,0 +1,30 @@
+Source: sleuthkit-datamodel
+Section: java
+Priority: optional
+Maintainer: rishwanth <rishwanth@basistech.com>
+Build-Depends: debhelper (>= 8), default-jdk, javahelper (>= 0.54ubuntu1.1) , ant, libc3p0-java, libpostgresql-jdbc-java
+Standards-Version: 3.9.3
+Homepage: https://www.sleuthkit.org/
+
+Package: libsleuthkit-datamodel-java
+Architecture: all
+Depends: ${java:Depends}, ${misc:Depends}, libpostgresql-jdbc-java, libc3p0-java, sleuthkit
+Recommends: ${java:Recommends}
+Description: SQLite datamodel for sleuthkit
+ The core functionality of the Sleuth Kit is in the C/C++ library.
+ The functionality is made available to Java applications by using
+ JNI.  The theory is that a SQLite database is created by the C++
+ library and then it is queried by native Java code. JNI methods
+ exist to make the database and to read file content (and other raw
+ data that is too large to fit into the database).
+
+
+Package: libsleuthkit-datamodel-java-doc
+Architecture: all
+Section: doc
+Depends: ${java:Depends}, ${misc:Depends}
+Recommends: ${java:Recommends}
+Description: SQLite datamodel for sleuthkit - doc
+ The docs contains the javadocs for sleuthkit jni.
+ .
+ This package contains the Javadoc API
