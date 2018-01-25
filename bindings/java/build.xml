@@ -30,6 +30,7 @@
 	<property name="i386" location="build/NATIVELIBS/i386" />
 	<property name="i586" location="build/NATIVELIBS/i586" />
 	<property name="i686" location="build/NATIVELIBS/i686"/>
+	<property name="dependencies" location="build/lib"/>
   
 
 
@@ -67,6 +68,7 @@
 		<mkdir dir="${i686}"/>
 		<mkdir dir="${i686}/win"/>
 		<mkdir dir="${i686}/linux"/>
+		<mkdir dir="${dependencies}"/>
 	</target>
   
 	<property name="ivy.install.version" value="2.3.0-rc2" />
@@ -110,7 +112,7 @@
 		</javac>
 	</target>
   
-	<target name="compile" depends="init, retrieve-deps"
+	<target name="compile" depends="init, retrieve-deps, set-library-path, check-build-unix"
 			description="compile the source" >
 		<!-- Compile the java code from ${src} into ${build} -->
 		<javac debug="on" srcdir="${src}" destdir="${build}" classpathref="libraries" includeantruntime="false">
@@ -209,6 +211,13 @@
 			<classpath refid="libraries"/>
 		</java>
 		
+	</target>
+
+	<target name="compile-sample" depends="compile" description="compile the sample">
+		<property name="srcdir" location="${basedir}/SleuthkitSample"/>
+		<javac debug="on" srcdir="${srcdir}" destdir="${srcdir}" classpathref="libraries" includeantruntime="false">
+			<compilerarg value="-Xlint"/>
+		</javac>
 	</target>
 	<target name="doxygen" description="build doxygen docs, requires doxygen in PATH">
 		<exec executable="doxygen" dir="${basedir}/doxygen">
