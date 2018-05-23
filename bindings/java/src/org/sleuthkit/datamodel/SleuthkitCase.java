@@ -8504,6 +8504,30 @@ public class SleuthkitCase {
 			releaseSingleUserCaseReadLock();
 		}
 	}
+	
+	public final List<IngestModuleInfo> getAllModules() throws TskCoreException{
+		CaseDbConnection connection = connections.getConnection();
+		ResultSet resultSet = null;
+		Statement statement = null;
+		List<IngestModuleInfo> ingestModules = new ArrayList<IngestModuleInfo>();
+		acquireSingleUserCaseReadLock();
+		try{
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery("SELECT * FROM ingest_jobs");
+			while (resultSet.next()) {
+				ingestModules.add(new IngestModuleInfo(resultSet.getInt("ingest_module_id"), resultSet.getString("display_name"),
+						resultSet.getString("unique_name"), IngestModuleType.fromID(resultSet.getInt("type_id")), resultSet.getString("version")));
+			}
+			return ingestModules;
+		} catch (SQLException ex) {
+			throw new TskCoreException("Couldn't get the ingest modules.", ex);
+		} finally {
+			closeResultSet(resultSet);
+			closeStatement(statement);
+			connection.close();
+			releaseSingleUserCaseReadLock();
+		}
+	}
 
 	/**
 	 * Gets the ingest modules associated with the ingest job
