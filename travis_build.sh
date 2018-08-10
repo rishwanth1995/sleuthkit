@@ -3,6 +3,7 @@ set -ex
 installLib() {
 	git clone https://github.com/libyal/$1
 	cd $1
+	git checkout tags/$2
 	./synclibs.sh
 	./autogen.sh
 	if test ${TRAVIS_OS_NAME} = "linux"; then
@@ -21,7 +22,7 @@ elif test ${TRAVIS_OS_NAME} = "osx"; then
 	export PATH=${PATH}:/usr/local/opt/gettext/bin
 	brew install ant libewf gettext cppunit
 fi
-installLib libvhdi
-installLib libvmdk
+installLib libvhdi 20160424
+installLib libvmdk 20160119
 ./bootstrap && ./configure --prefix=/usr && make > /dev/null
 cd bindings/java/ && ant -q dist-PostgreSQL
