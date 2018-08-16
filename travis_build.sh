@@ -2,7 +2,7 @@
 set -ex
 installLib() {
 	wget https://github.com/libyal/libvhdi/releases/download/$2/$1-alpha-$2.tar.gz
-	tar -xzf libvhdi-alpha-$1.tar.gz
+	tar -xzf $1-alpha-$2.tar.gz
 	cd $1-$2
 	if test ${TRAVIS_OS_NAME} = "linux"; then
 		./configure -prefix=/usr > /dev/null
